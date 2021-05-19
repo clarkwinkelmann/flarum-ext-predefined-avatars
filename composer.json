@@ -1,0 +1,45 @@
+{
+    "name": "clarkwinkelmann/flarum-ext-predefined-avatars",
+    "description": "Make users choose their avatar from a list",
+    "keywords": [
+        "flarum",
+        "avatar"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": "^0.1.0-beta.16",
+        "ext-json": "*"
+    },
+    "authors": [
+        {
+            "name": "Clark Winkelmann",
+            "homepage": "https://clarkwinkelmann.com/",
+            "email": "clark.winkelmann@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/clarkwinkelmann/flarum-ext-predefined-avatars",
+        "forum": "https://discuss.flarum.org/d/27302"
+    },
+    "autoload": {
+        "psr-4": {
+            "ClarkWinkelmann\\PredefinedAvatars\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Predefined Avatars",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-user-circle",
+                "backgroundColor": "#684ba6",
+                "color": "#fff"
+            }
+        },
+        "flagrow": {
+            "discuss": "https://discuss.flarum.org/d/27302"
+        }
+    }
+}

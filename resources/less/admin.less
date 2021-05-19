@@ -1,0 +1,38 @@
+.Avatar--predefined {
+    .Avatar--size(100px);
+}
+
+.PredefinedAvatars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        position: relative;
+        margin: 5px;
+    }
+
+    [draggable] {
+        cursor: move;
+    }
+
+    .Avatar--placeholder {
+        border: 2px dashed #aaa;
+    }
+
+    .Button--delete {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
+
+    .UploadButton {
+        color: #333;
+
+        &:hover {
+            color: white;
+            background: #777;
+        }
+    }
+}
