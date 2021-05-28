@@ -1,8 +1,8 @@
+import app from 'flarum/admin/app';
 import Button from 'flarum/common/components/Button';
 import icon from 'flarum/common/helpers/icon';
+import ExtensionPage from 'flarum/admin/components/ExtensionPage';
 import Sortable from './components/Sortable';
-
-/* global app, m */
 
 app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
     let uploading = false;
@@ -33,10 +33,10 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
             label: app.translator.trans('clarkwinkelmann-predefined-avatars.admin.settings.predefinedAvatarsDefault'),
             help: app.translator.trans('clarkwinkelmann-predefined-avatars.admin.settings.predefinedAvatarsDefaultHelp'),
         })
-        .registerSetting(function () {
+        .registerSetting(function (this: ExtensionPage) {
             const rawAvatars = this.setting('predefinedAvatars')();
 
-            let avatars;
+            let avatars: string[] = [];
 
             try {
                 avatars = JSON.parse(rawAvatars);
@@ -90,7 +90,7 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
                         key: 'add',
                     }, m('a.Avatar.Avatar--predefined.UploadButton', {
                         href: '#',
-                        onclick: event => {
+                        onclick: (event: Event) => {
                             event.preventDefault();
 
                             const $input = $('<input type="file">');
@@ -98,9 +98,10 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
                             $input
                                 .appendTo('body')
                                 .hide()
-                                .click()
+                                .trigger('click')
                                 .on('change', event => {
                                     const body = new FormData();
+                                    // @ts-ignore we know target.files will exist
                                     body.append('avatar', event.target.files[0]);
 
                                     uploading = true;
@@ -110,7 +111,7 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
                                         .request({
                                             method: 'POST',
                                             url: app.forum.attribute('apiUrl') + '/predefined-avatar-upload',
-                                            serialize: (raw) => raw,
+                                            serialize: (raw: any) => raw,
                                             body,
                                         })
                                         .then(response => {

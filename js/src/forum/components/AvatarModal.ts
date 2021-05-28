@@ -1,8 +1,15 @@
+import app from 'flarum/forum/app';
 import Modal from 'flarum/common/components/Modal';
+import User from 'flarum/common/models/User';
 
-/* global app, m */
+interface AvatarModalAttrs {
+    user: User
+}
 
+// @ts-ignore TODO missing Modal.view typings
 export default class AvatarModal extends Modal {
+    attrs!: AvatarModalAttrs
+
     className() {
         return 'SetPredefinedAvatarModal';
     }
@@ -14,7 +21,7 @@ export default class AvatarModal extends Modal {
     content() {
         const avatars = app.forum.attribute('predefinedAvatars');
 
-        return m('.Modal-body', avatars.map(avatar => m('a.Avatar.Avatar--predefined', {
+        return m('.Modal-body', avatars.map((avatar: string) => m('a.Avatar.Avatar--predefined', {
             onclick: () => {
                 this.attrs.user.save({
                     predefinedAvatar: avatar,
