@@ -21,7 +21,10 @@ class AvatarUploader
 
         $avatarPath = Str::random() . '.' . $ext;
 
-        $this->uploadDir->put('predefined/' . $avatarPath, $file->getStream()->getContents());
+        $stream = $file->getStream();
+        $stream->rewind();
+
+        $this->uploadDir->put('predefined/' . $avatarPath, $stream->getContents());
 
         return $avatarPath;
     }
