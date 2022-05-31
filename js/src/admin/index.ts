@@ -56,7 +56,7 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
                     containerTag: 'ul.PredefinedAvatars',
                     placeholderTag: 'li.Avatar.Avatar--predefined.Avatar--placeholder',
                     direction: 'horizontal',
-                    onsort: (origin, destination) => {
+                    onsort: (origin: number, destination: number) => {
                         // Because the "add" button is inside of the Sortable component
                         // it's possible to drop an avatar after the last place, which wouldn't work
                         if (destination >= avatars.length) {
@@ -108,7 +108,7 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
                                     m.redraw();
 
                                     app
-                                        .request({
+                                        .request<{ path: string }>({
                                             method: 'POST',
                                             url: app.forum.attribute('apiUrl') + '/predefined-avatar-upload',
                                             serialize: (raw: any) => raw,

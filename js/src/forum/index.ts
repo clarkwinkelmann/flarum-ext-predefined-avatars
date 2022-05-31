@@ -1,14 +1,14 @@
 import app from 'flarum/forum/app';
 import {extend, override} from 'flarum/common/extend';
+import User from 'flarum/common/models/User';
 import AvatarEditor from 'flarum/forum/components/AvatarEditor';
 import Button from 'flarum/common/components/Button';
-import ItemList from 'flarum/common/utils/ItemList';
 import AvatarModal from './components/AvatarModal';
 
 app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
-    extend(AvatarEditor.prototype, 'controlItems', function (this: AvatarEditor, items: ItemList) {
-        // @ts-ignore TODO missing AvatarEditor.attrs.user typings
-        const {user} = this.attrs;
+    extend(AvatarEditor.prototype, 'controlItems', function (items) {
+        // @ts-ignore attrs is protected
+        const user = this.attrs.user as User;
 
         // Hide the "remove" button when we open the dropdown despite being no avatar
         if ((!user.avatarUrl() || app.forum.attribute('cannotRemoveAvatar')) && items.has('remove')) {
@@ -36,8 +36,8 @@ app.initializers.add('clarkwinkelmann-predefined-avatars', () => {
             return original(event);
         }
 
-        // @ts-ignore TODO missing AvatarEditor.attrs.user typings
-        const {user} = this.attrs;
+        // @ts-ignore attrs is protected
+        const user = this.attrs.user as User;
 
         // If user can use predefined but not custom, open predefined modal right away
         if (
